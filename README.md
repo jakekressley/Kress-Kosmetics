@@ -4,4 +4,4 @@
 
 ## Live Demo
 
-[Explore the Live Demo]((https://forio.com/app/jakekressley/kress-kosmetics/)https://forio.com/app/jakekressley/kress-kosmetics/)
+[Explore the Live Demo](https://forio.com/app/jakekressley/kress-kosmetics/)
