@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kress Kosmetics</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="icon" href="../images/kress-logo.png">
+    <script src="../js/levers.js"></script>
+
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+
+    <!-- Forio Setup -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.js"></script>
+    <script src="//forio.com/tools/js-libs/2.9.1/epicenter.min.js"></script>
+    <script src="//forio.com/tools/js-libs/flow/latest/flow.js"></script>
+    <script src="//forio.com/tools/js-libs/flow/latest/add-ons/flow-inspector.min.js"></script>
+    <script src="../js/main.js"></script>
+
+    <!-- Oswald font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald&family=Prompt&display=swap" rel="stylesheet">
+</head>
+<body data-f-model="Hackathon Model.xlsx">
+    <div class="container-fluid m-0 p-0 flex flex-column">
+        <header class="header row flex align-items-center justify-content-between">
+            <img src="../images/Kress-rose-full-white.png" alt="Kress Logo">
+            <div class="col-3">
+                <img class="company-logo" src="../images/advantexe-white.png" alt="advantexe logo">
+            </div>
+        </header>
+        <div class="row flex-grow-1" id="all-content">
+            <nav class="side-nav p-4 pt-3" style="width: 20%;">
+                <ul class="list-group">
+                    <li><a href="../index.html">Getting Started</a></li>
+                    <li><a href="business-dashboard.html">Business Dashboard</a></li>
+                    <li><a href="financials.html">Financials</a></li>
+                    <!-- <li><a href="budget-allocation.html">Budget Allocation</a></li> -->
+                    <li><a href="operating-decisions.html">Operating Decisions</a></li>
+                    <li><a href="submit.html">Submit</a></li>
+                    <li><a href="#" id="link-active">Results</a></li>
+                    <li><a href="reset.html">Reset</a></li>
+                </ul>
+            </nav>
+            <div id="content" class="col">
+                <div class="row" id="header-row">
+                    <div class="header-container">
+                        <h4 class="page-title">Results</h4>
+                        <h4 class="page-title">Year: <span data-f-bind="Time[<Step>]"></span></h4>
+                    </div>
+                </div>
+                <div class="row mt-4 justify-content-center">
+                    <div class="col instructions p-2 text-center">
+                        <p>This section contains the outcome of your submission. It will display the decisions you've made and their effectiveness for the business in each related field. This feedback can be utilized to enhance your decision-making for the upcoming year. <strong>Note:</strong> You will not be able to view any results until submitting your first year.</p>
+                    </div>
+                </div>
+                <!-- Tabs -->
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active tab-color" id="inflation-tab" data-bs-toggle="tab" data-bs-target="#inflation" type="button" role="tab" aria-controls="inflation" aria-selected="true">Inflation</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link tab-color" id="marketing-tab" data-bs-toggle="tab" data-bs-target="#marketing" type="button" role="tab" aria-controls="marketing" aria-selected="false">Marketing</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link tab-color" id="RD-tab" data-bs-toggle="tab" data-bs-target="#RD" type="button" role="tab" aria-controls="RD" aria-selected="false">R&D</button>
+                            </li>
+                        </ul>
+
+                        <!-- Inflation Decisions -->
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="inflation" role="tabpanel" aria-labelledby="inflation-tab">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <table class="col-10 table table-bordered lever-table">
+                                            <tr class="text-center">
+                                                <th>Lever</th>
+                                                <th>Result</th>
+                                                <th>Explanation</th>
+                                            </tr>
+                                            <tr data-f-showif="increasePriceDecision[<previousStep>] | greaterThan(0)">
+                                                <td>
+                                                    Increase Prices
+                                                </td>
+                                                <td><img src="../images/thumbup.png" alt="Thumb Up"></td>
+                                                <td>
+                                                    
+                                                    Raising prices can help businesses cope with inflation. When costs for materials, production, and operations go up due to inflation, raising prices allows the business to maintain healthy profit margins.
+                                                </td>
+                                            </tr>
+                                            <tr data-f-showif="decreasePriceDecision[<previousStep>] | greaterThan(0)">
+                                                <td>Decrease Prices</td>
+                                                <td><img src="../images/downthumb.png" alt="Thumb Down"></td>
+                                                <td>Lowering prices during inflation is usually not a good idea. It can hurt profits, make customers question quality, and cause other problems with the business like lacking cash to make changes. </td>
+                                            </tr>
+                                            <tr data-f-showif="layoffDecision[<previousStep>] | greaterThan(0)">
+                                                <td>Layoff Employees</td>
+                                                <td><img src="../images/sidethumb.png" alt="Thumb Sideways"></td>
+                                                <td>Layoffs in the face of inflation can be a double-edged sword. On the positive side, they can cut costs for businesses. But, they can also hurt spending and increase joblessness, which isn't good for the overall economy. Deciding on layoffs needs careful thought about both savings and potential downsides.</td>
+                                            </tr>
+                                            <tr data-f-showif="relocateDecision[<previousStep>] | greaterThan(0)">
+                                                <td>Relocate Production</td>
+                                                <td><img src="../images/downthumb.png" alt="Thumb Down"></td>
+                                                <td>Relocating to combat inflation is typically a poor choice. It may cost companies a significant amount to move their facilities to another place and this comes with a higher probability of supply chain disruptions.</td>
+                                            </tr>
+                                            <tr data-f-showif="decreasePackDecision[<previousStep>] | greaterThan(0)">
+                                                <td>Decrease Packaging Quality</td>
+                                                <td><img src="../images/sidethumb.png" alt="Thumb Sideways"></td>
+                                                <td>This can have mixed effects for a business battling inflation. Reducing packaging materials will lead to cost savings for business. However this may change the customer perception of a company's products, leading to a decrease in sales.</td>
+                                            </tr>
+                                            <tr data-f-showif="europeDecision[<previousStep>] | greaterThan(0)">
+                                                <td>Expand to Europe</td>
+                                                <td><img src="../images/thumbup.png" alt="Thumb Up"></td>
+                                                <td>This can be one of the best decisions a company can make to combat inflation assuming they have not already had a presence in European markets. Europe presents a large and diverse market with strong purchasing power and can help mitigate the effects of currency fluctuations due to a company having multiple currency revenue streams.</td>
+                                            </tr>
+                                            <tr data-f-showif="sustainableDecision[<previousStep>] | greaterThan(0)">
+                                                <td>Prioritize Sustainable Products</td>
+                                                <td><img src="../images/thumbup.png" alt="Thumb Up"></td>
+                                                <td>Sustainability initiatives, such as using eco-friendly materials, reducing waste, and minimizing energy consumption, often lead to cost savings in the long run. Moreover, consumers increasingly value sustainable products, which can enhance brand reputation, customer loyalty, and market competitiveness.</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Marketing Decisions -->
+                            <div class="tab-pane fade" id="marketing" role="tabpanel" aria-labelledby="marketing-tab">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <table class="col-10 table table-bordered lever-table">
+                                            <tr class="text-center">
+                                                <th>Decision</th>
+                                                <th>Lever</th>
+                                                <th>Explanation</th>
+                                            </tr>
+                                            <tr data-f-showif="socialMediaDecision[<previousStep>] | greaterThan(0)">
+                                                <td>
+                                                    Social Media Advertisements
+                                                </td>
+                                                <td><img src="../images/thumbup.png" alt="Thumb Up"></td>
+                                                <td>They let you show your ads to specific groups of people who are likely interested, and they're usually not too expensive. Since lots of people use social media, your ads can reach many people all over the world. It's a powerful and cost-effective way to get your message out there and connect with customers.</td>
+                                            </tr>
+                                            <tr data-f-showif="influencerDecision[<previousStep>] | greaterThan(0)">
+                                                <td>Influencer Brand Deal</td>
+                                                <td><img src="../images/thumbup.png" alt="Thumb Up"></td>
+                                                <td>Having an influencer promote your brand is smart marketing. Influencers have followers who trust them, so when they talk about your product, it's believable and helps your brand get noticed. They make the promotion feel real and relatable, which is great. Also, influencers can introduce your brand to new groups of people, and their posts get lots of likes and comments, which spreads the word.</td>
+                                            </tr>
+                                            <tr data-f-showif="webAdsDecision[<previousStep>] | greaterThan(0)">
+                                                <td>Webpage Advertisements</td>
+                                                <td><img src="../images/sidethumb.png" alt="Thumb Sideways"></td>
+                                                <td>Web ads are good marketing because they let you reach specific people based on their interests and behavior, making your ads more relevant. They're also flexible in budget, offer quick results, and have visual appeal. However, they can be bad marketing when people use ad blockers, leading to lower visibility, and when there are too many ads causing fatigue. Misplaced or intrusive ads can annoy users, and click rates might be low. It's also a competitive space, and some users ignore ads altogether.</td>
+                                            </tr>
+                                            <tr data-f-showif="commercialDecision[<previousStep>] | greaterThan(0)">
+                                                <td>Produce Commercials</td>
+                                                <td><img src="../images/sidethumb.png" alt="Thumb Sideways"></td>
+                                                <td>Commercials are good marketing because they reach a wide audience through TV, radio, or online platforms. They can build brand awareness and convey messages effectively. However, they can be bad marketing when viewers use DVRs or streaming services to skip ads. Commercials can also be intrusive and annoying, leading to negative feelings toward the brand. Additionally, producing and airing commercials can be expensive, and their impact might not always be easy to measure.</td>
+                                            </tr>
+                                            <tr data-f-showif="eventDecision[<previousStep>] | greaterThan(0)">
+                                                <td>Sponser Events</td>
+                                                <td><img src="../images/thumbup.png" alt="Thumb Up"></td>
+                                                <td>Sponsoring events can be excellent for marketing because it boosts brand visibility and exposure. Your brand's association with the event can lead to positive perceptions among attendees. It can also help target specific audiences, aligning your brand with their interests. Event sponsorship showcases your commitment to community involvement, enhancing your brand's reputation.</td>
+                                            </tr>
+                                            <tr data-f-showif="magazineDecision[<previousStep>] | greaterThan(0)">
+                                                <td>Magazine Advertisements</td>
+                                                <td><img src="../images/downthumb.png" alt="Thumb Down"></td>
+                                                <td>Magazine ads might not be the best marketing nowadays. They don't reach as many people as online alternatives. Magazines take a long time to make, so they're not great for quick ads. It's also hard to know if they work well. People might not notice or care about the ads in magazines, and it's tough to aim them at specific groups. While they still have some good points, like looking nice in print, they're not as popular as before.</td>
+                                            </tr>
+                                            <tr data-f-showif="mailDecision[<previousStep>] | greaterThan(0)">
+                                                <td>Mail Advertisements</td>
+                                                <td><img src="../images/downthumb.png" alt="Thumb Down"></td>
+                                                <td>People often receive a lot of mail, so your ad might get lost in the pile. Some people might even consider mail ads as spam and throw them away without reading. Printing and sending mail can also be expensive, especially compared to digital marketing. Tracking the impact of mail ads can be difficult, making it hard to know if they're working well.</td>
+                                            </tr>
+                                            <tr data-f-showif="billboardDecision[<previousStep>] | greaterThan(0)">
+                                                <td>Billboard Advertisements</td>
+                                                <td><img src="../images/downthumb.png" alt="Thumb Down"></td>
+                                                <td>Billboards can sometimes be less effective as marketing tools for a few reasons. They're static and don't change quickly, so they might not work well for time-sensitive promotions. People often see billboards while driving, so they have very little time to read or remember the message. Plus, not everyone looks at billboards, and they can be easily ignored. Tracking the impact of billboards is also hard, making it tough to know if they're working.</td>
+                                            </tr>
+                                            <tr data-f-showif="storesDecision[<previousStep>] | greaterThan(0)">
+                                                <td>Open Stores</td>
+                                                <td><img src="../images/thumbup.png" alt="Thumb Up"></td>
+                                                <td>Opening stores can be great for marketing due to several reasons. Firstly, physical stores provide a tangible presence where customers can experience products in person, which can build trust and boost sales. Secondly, stores create brand visibility and awareness within the local community. Thirdly, stores offer opportunities for face-to-face interactions, allowing businesses to engage with customers directly, provide personalized assistance, and gather valuable feedback.</td>
+                                            </tr>
+                                            <tr data-f-showif="amajonDecision[<previousStep>] | greaterThan(0)">
+                                                <td>Online Retailers</td>
+                                                <td><img src="../images/thumbup.png" alt="Thumb Up"></td>
+                                                <td>
+                                                    Putting your products on online retailers is good for marketing because it gives your products a wider reach. Many people shop online, so your products can be seen by a larger audience. It also makes it convenient for customers to buy from you. Being on well-known online platforms can build trust in your brand. However, there might be competition and fees to consider. Overall, it's a way to get more customers and make it easy for them to get your products.</td>
+                                            </tr>
+                                            <tr data-f-showif="sportsDecision[<previousStep>] | greaterThan(0)">
+                                                <td>Sponser a Sports Team</td>
+                                                <td><img src="../images/downthumb.png" alt="Thumb Down"></td>
+                                                <td>While it can increase brand visibility, it might not always lead to direct sales. Also, if the team performs poorly or gets involved in controversies, your brand could be negatively affected by association. Sponsorship can be expensive, and the benefits might not be easily measurable. Moreover, the audience might not match your target customers, leading to lower return on investment.</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- R&D Decisions -->
+                            <div class="tab-pane fade" id="RD" role="tabpanel" aria-labelledby="RD-tab">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <table class="col-10 table table-bordered lever-table">
+                                            <tr>
+                                                <th>Lever</th>
+                                                <th>Result</th>
+                                                <th>Explanation</th>
+                                            </tr>
+                                            <tr data-f-showif="revampDecision[<previousStep>] | greaterThan(0)">
+                                                <td>
+                                                   Revamp Older Products
+                                                </td>
+                                                <td><img src="../images/sidethumb.png" alt="Thumb Sideways"></td>
+                                                <td>Updating old products can increase sales by making them more appealing and relevant. These changes attract customers and show your brand's commitment to improvement. This is also relatively cheap compared to releasing a whole new product. However, if the communication about updates is not properly handled, it may undersell.</td>
+                                            </tr>
+                                            <tr data-f-showif="testingDecision[<previousStep>] | greaterThan(0)">
+                                                <td>New Product Testing</td>
+                                                <td><img src="../images/sidethumb.png" alt="Thumb Sideways"></td>
+                                                <td>Testing new products before launch is crucial because it helps identify potential issues and ensures that the product meets customer expectations. Testing allows you to gather feedback, spot any defects, and make improvements before releasing it to the market. This can save you from negative customer experiences and costly recalls later on. Testing also helps you understand how the product performs in real-world situations, helping you make necessary adjustments.</td>
+                                            </tr>
+                                            <tr data-f-showif="createProductsDecision[<previousStep>] | greaterThan(0)">
+                                                <td>Launching New Product</td>
+                                                <td><img src="../images/thumbup.png" alt="Thumb Up"></td>
+                                                <td>Launching new products can boost sales because they create excitement and attract attention. People are curious about new things, so they're more likely to buy and try. New products can also bring in new customers who are interested in the latest offerings. This freshness can make your brand more appealing and relevant. However, it'  s important to make sure the new product meets customer needs and is properly marketed.</td>
+                                            </tr>
+                                            <tr data-f-showif="efficientDecision[<previousStep>] | greaterThan(0)">
+                                                <td>Upgrade Factory Efficiency</td>
+                                                <td><img src="../images/sidethumb.png" alt="Thumb Sideways"></td>
+                                                <td>
+                                                    Improving factory efficiency is a strategic move for several reasons. It cuts costs, makes production faster, and improves product quality. It's also better for the environment. However, it might need some initial investment. Overall, boosting efficiency brings financial gains, happier customers, and eco-friendly practices, however your money may be better spent elsewhere.
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

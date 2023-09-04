@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kress Kosmetics</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="images/kress-logo.png">
+
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+
+    <!-- Forio Setup -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.js"></script>
+    <script src="//forio.com/tools/js-libs/2.9.1/epicenter.min.js"></script>
+    <script src="//forio.com/tools/js-libs/flow/latest/flow.js"></script>
+    <script src="//forio.com/tools/js-libs/flow/latest/add-ons/flow-inspector.min.js"></script>
+    <script src="js/main.js"></script>
+
+    <!-- Oswald font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald&family=Prompt&display=swap" rel="stylesheet">
+</head>
+<body data-f-model="Hackathon Model.xlsx">
+    <div class="container-fluid m-0 p-0 flex flex-column">
+        <header class="header row flex align-items-center justify-content-between">
+            <img src="images/Kress-rose-full-white.png" alt="Kress Logo">
+            <!-- <button class="col-2" id="toggle-theme">Toggle Theme</button> -->
+            <div class="col-3">
+                <img class="company-logo" src="images/advantexe-white.png" alt="advantexe logo">
+            </div>
+        </header>
+        <div class="row flex-grow-1" id="all-content">
+            <nav class="side-nav p-4 pt-3 col-2" style="width: 20%;">
+                <ul class="list-group">
+                    <li><a href="#" id="link-active">Getting Started</a></li>
+                    <li><a href="pages/business-dashboard.html">Business Dashboard</a></li>
+                    <li><a href="pages/financials.html">Financials</a></li>
+                    <!-- <li><a href="pages/budget-allocation.html">Budget Allocation</a></li> -->
+                    <li><a href="pages/operating-decisions.html">Operating Decisions</a></li>
+                    <li><a href="pages/submit.html">Submit</a></li>
+                    <li><a href="pages/results.html">Results</a></li>
+                    <li><a href="pages/reset.html">Reset</a></li>
+                </ul>
+            </nav>
+            <div id="content" class="col">
+                <div class="row" id="header-row">
+                    <div class="header-container">
+                        <h4 class="page-title">Getting Started</h4>
+                        <h4 class="page-title">Year: <span data-f-bind="Time[<Step>]"></span></h4>
+                    </div>
+                </div>
+                <!-- Tabs -->
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="active nav-link tab-color" id="introduction-tab" data-bs-toggle="tab" data-bs-target="#introduction" type="button" role="tab" aria-controls="introduction" aria-selected="false">Introduction</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                              <button class="nav-link tab-color" id="learning-objectives-tab" data-bs-toggle="tab" data-bs-target="#learning-objectives" type="button" role="tab" aria-controls="learning-objectives" aria-selected="true">Learning Objectives</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                              <button class="nav-link tab-color" id="role-tab" data-bs-toggle="tab" data-bs-target="#role" type="button" role="tab" aria-controls="role" aria-selected="false">Your Role</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                              <button class="nav-link tab-color" id="process-tab" data-bs-toggle="tab" data-bs-target="#process" type="button" role="tab" aria-controls="process" aria-selected="false">Simulation Process</button>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="introduction" role="tabpanel" aria-labelledby="introduction-tab">
+                                <div class="container-fluid">
+                                    <div class="row flex">
+                                        <div class="col-6">
+                                            <p class="pt-3"> &emsp; Greetings and welcome aboard KRESS Kosmetics! Our company, KRESS Kosmetics, is an up-and-coming makeup company trying to make waves in the makeup industry. They are known for their innovation and the exceptional quality of their products. They have prospered over the last few years steadily increasing their business metrics.</p>
+
+                                            <p>
+                                                &emsp; This constant success is in danger as this year a significant rise in inflation plagued the nation. Prices soared, making it difficult for consumers to afford even their basic necesseties. The makeup industry was not immune to these economic fluctuations, and KRESS began to feel the pinch.
+                                            </p>
+                                        </div>
+                                        <div class="d-flex justify-content-center mt-4 col-6">
+                                            <img src="images/kress-building.png" alt="increase" class="object-fit-cover" style="width: 100%; height: auto;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fad" id="learning-objectives" role="tabpanel" aria-labelledby="learning-objectives-tab">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col m-2">
+                                            <p>In this dynamic simulation, participants will embark on a journey to master the intricacies of combating inflation while making effective marketing decisions. Throughout the experience, participants will have the opportunity to:</p>
+
+                                            <ul>
+                                                <li><strong>Inflation Understanding: </strong>Acquire a comprehensive grasp of inflation's economic ramifications, discerning its effects on businesses and consumers alike.</li>
+                                                <li><strong>Inflation Analysis: </strong>Navigate the intricate interplay between inflation, pricing dynamics, and market demand, unraveling the complexities of effective response strategies.</li>
+                                                <li><strong>Decisive Inflation Management: </strong>Hone strategic decision-making skills to adeptly address inflation-induced uncertainties, identifying opportunities amid market fluctuations.</li>
+                                                <li><strong>Strategic Audience Engagement: </strong>Develop targeted marketing campaigns that resonate with specific customer segments, fostering meaningful connections and driving engagement for sustainable brand loyalty.</li>
+                                                <li><strong>Digital vs. Physical Strategy: </strong>Carefully assess your target audience and product offering to determine whether a digital or physical marketing approach is more suitable.</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="role" role="tabpanel" aria-labelledby="role-tab">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <p>Due to unforseen circumstances you have been hired in as CEO! We hope you bring modern solutions to help our old fashioned company with new-age marketing like social media Congratulations! You will be making key-decisions within the company. The company's fate rests on your shoulders so no pressure!. Your responsibilities will revolve revolve around making critical choices in three essential areas:
+                                            </p>
+                                            <ul class="fw-bold">
+                                                <li>Inflation Management</li>
+                                                <li>Marketing Strategies</li>
+                                                <li>Research and Development (R&D)</li>
+                                            </ul>
+                                            <p>You will also be tasked with monitoring the changes in inflation to ensure you are making the proper decisions to help make KRESS Kosmetic as successful as it can be!</p>
+                                        </div>
+                                        <div class="col-6">
+                                            <img src="images/kress-hallway.png" alt="kress hallway" style="width: 100%;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="process" role="tabpanel" aria-labelledby="process-tab">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col">
+                                            <p>This simulation will be 4 years longs (through 2026) but can be stopped at any time. Throughout the Simulation, you will make tasked with making crucial decisions regarding the following aspects:
+                                            </p>
+
+                                            <p>
+                                                <strong>Inflation Management: </strong> You will be monitoring and handling the impact of inflation on the company's operations. Balancing pricing strategies, production costs, and financial decisions will be crucial to ensure the company's stability and profitability in a dynamic economic environment.
+                                            </p>
+
+                                            <p>
+                                                <strong>Marketing Strategy: </strong> Developing and implementing effective marketing campaigns will be under your purview. You'll have to decide on advertising channels, target markets, promotional offers, and branding efforts to enhance the company's visibility and customer engagement.
+                                            </p>
+
+                                            <p>
+                                                <strong>Research and Development(R&D): </strong> Innovation is key in the makeup industry, and you will play a pivotal role in directing the company's R&D efforts. This includes exploring new product ideas, improving existing offerings, and staying ahead of competitors by introducing cutting-edge makeup products.
+                                            </p>
+
+                                            <p>
+                                                Throughout the simulation, your decisions in these areas will significantly impact the company's growth, competitiveness, and overall success. Good luck and get ready to experience the dynamic challenges of managing a makeup company!
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

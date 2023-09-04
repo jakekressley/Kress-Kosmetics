@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kress Kosmetics</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="icon" href="../images/kress-logo.png">
+
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+
+    <!-- Forio Setup -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.js"></script>
+    <script src="//forio.com/tools/js-libs/2.9.1/epicenter.min.js"></script>
+    <script src="//forio.com/tools/js-libs/flow/latest/flow.js"></script>
+    <script src="//forio.com/tools/js-libs/flow/latest/add-ons/flow-inspector.min.js"></script>
+    <script src="../js/main.js"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald&family=Prompt&display=swap" rel="stylesheet">
+
+    <!-- Google Charts -->
+    <script src="../js/charts.js"></script>
+    <script src="../js/flow-addons.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {
+    'packages': ['bar']
+});
+google.charts.load('current', {
+    'packages': ['corechart']
+});
+google.charts.load('current', {
+    'packages': ['line']
+});
+google.charts.load('current', {
+    'packages': ['gauge']
+});
+google.charts.load('current', {
+    'packages': ['corechart', 'scatter']
+});
+
+
+function drawColumnChart(xAxis, yAxis, id, options, data, len, type, format) {
+
+    //type 1 = basic || type 2 = fixed xAxis || type 3 = percent chart || type 4 = percent chart with /100
+    //format 1 = ##,### || format 2 = 00.00 || format 3 = $##,### || format 4 = 00.00%
+
+    $step = yAxis['Step'];
+    data.addRows(len);
+
+    if (type == 1) {
+        for (i = 0; i < len; i++) {
+            data.setCell(i, 0, xAxis[i].toString());
+            data.setCell(i, 1, yAxis[i]);
+        }
+    } else if (type == 2) {
+        k = 0;
+        for (var i = ($step - len); i < ($step); i++) {
+            var j = 0;
+            for (key in yAxis) {
+                if (key != 'Step') {
+                    var val = yAxis[key];
+                    if (j == 0) {
+                        data.setCell(k, j, xAxis[i].toString());
+                        j++;
+                        data.setCell(k, j, val[i]);
+                    } else
+                        data.setCell(k, j, val[i]);
+
+                    j++;
+                }
+            }
+            k++;
+        }
+    } else if (type == 3) {
+        for (i = 0; i < len; i++) {
+            data.setCell(i, 0, xAxis[i].toString());
+            data.setCell(i, 1, (yAxis[i]).toFixed(2));
+        }
+    } else if (type == 4) {
+        for (i = 0; i < len; i++) {
+            data.setCell(i, 0, xAxis[i].toString());
+            data.setCell(i, 1, (yAxis[i] / 100).toFixed(2));
+        }
+    }
+
+    var formatter = new google.visualization.NumberFormat({
+        pattern: format
+    });
+    formatter.format(data, 1);
+
+    var chart = new google.visualization.ColumnChart(document.getElementById(id));
+    chart.draw(data, options);
+};
+
+
+function drawLineChart(xAxis, value, id, options, data, len, n, format) {
+
+
+    data.addRows(parseInt(len));
+    var val;
+    var k = 0;
+
+    for (var i = n - len; i < n; i++) {
+        var j = 0;
+        for (key in value) {
+            if (key != 'Step') {
+                val = value[key];
+                if (key == 'StartingStep') {
+                    data.setCell(k, j, xAxis[k].toString());
+                } else {
+                    data.setCell(k, j, Math.round(val[i]));
+                }
+                j++;
+            }
+        }
+        k++;
+    }
+
+    var formatter = new google.visualization.NumberFormat({
+        pattern: format
+    });
+
+    for (i = 1; i < j; i++) {
+        formatter.format(data, i);
+    }
+
+    var chart = new google.visualization.LineChart(document.getElementById(id));
+    chart.draw(data, google.charts.Line.convertOptions(options));
+}
+
+Flow.dom.converters.register('func_Dashboard_BarChart', function(value) {
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Year');
+
+    var step = value['Step'];
+    var startingStep = value['StartingStep'];
+    var diffStep = value['Step'] - value['StartingStep'];
+    var xAxis = [year + diffStep - 3, year + diffStep - 2, year + diffStep - 1];
+    var yAxis = [];
+    var id = '';
+    var options = {
+        legend: 'none',
+        animation: {
+            duration: 1000,
+            easing: 'out',
+            startup: true
+        },
+        vAxis: {
+            format: "long"
+        }
+
+    };
+
+    for (key in value) {
+        if (key != 'Step') {
+            yAxis = [value[key][step - 3], value[key][step - 2], value[key][step - 1]];
+            if (key == 'PNLNetRevenueTotal') {
+                id = "Dashboard_BarChart1";
+                data.addColumn('number', 'Revenue');
+
+                drawColumnChart(xAxis, yAxis, id, options, data, 3, 1, '$##,###');
+            } else if (key == 'MetricCPI') {
+                var options = {
+                    legend: 'none',
+                    animation: {
+                        duration: 1000,
+                        easing: 'out',
+                        startup: true
+                    },
+                    vAxis: {
+                        format: '##.00%'
+                    }
+                };
+
+                id = "Dashboard_BarChart2";
+                data.addColumn('number', 'CPI %');
+
+                drawColumnChart(xAxis, yAxis, id, options, data, 3, 3, '0.00%');
+            } else if (key == 'MetricSPI') {
+                var options = {
+                    legend: 'none',
+                    animation: {
+                        duration: 1000,
+                        easing: 'out',
+                        startup: true
+                    },
+                    vAxis: {
+                        format: '##.00%'
+                    }
+                };
+                id = "Dashboard_BarChart3";
+                data.addColumn('number', 'SPI %');
+                drawColumnChart(xAxis, yAxis, id, options, data, 3, 3, '0.00%');
+            } else if (key == 'PNLNetincome') {
+                var options = {
+                    legend: 'none',
+                    animation: {
+                        duration: 1000,
+                        easing: 'out',
+                        startup: true
+                    },
+                    vAxis: {
+                        format: 'long'
+                    }
+                };
+                id = "Dashboard_BarChart4";
+                data.addColumn('number', 'Net Income');
+                drawColumnChart(xAxis, yAxis, id, options, data, 3, 1, '$##,###');
+            } else if (key == 'MetricBiddingReputation') {
+                var options = {
+                    legend: 'none',
+                    animation: {
+                        duration: 1000,
+                        easing: 'out',
+                        startup: true
+                    },
+                    vAxis: {
+                        format: '##.00%'
+                    }
+                };
+                id = "Dashboard_BarChart5";
+                data.addColumn('number', 'Reputation Index %');
+                drawColumnChart(xAxis, yAxis, id, options, data, 3, 3, '0.00%');
+            } else if (key == 'MetricROA') {
+                var options = {
+                    legend: 'none',
+                    animation: {
+                        duration: 1000,
+                        easing: 'out',
+                        startup: true
+                    },
+                    vAxis: {
+                        format: '##.00%'
+                    }
+                };
+                id = "Dashboard_BarChart6";
+                data.addColumn('number', 'ROA %');
+                drawColumnChart(xAxis, yAxis, id, options, data, 3, 3, '0.00%');
+            } else if (key == 'MetricROS') {
+                var options = {
+                    legend: 'none',
+                    animation: {
+                        duration: 1000,
+                        easing: 'out',
+                        startup: true
+                    },
+                    vAxis: {
+                        format: '##.00%'
+                    }
+                };
+                id = "Dashboard_BarChart7";
+                data.addColumn('number', 'ROS %');
+                drawColumnChart(xAxis, yAxis, id, options, data, 3, 3, '0.00%');
+            } else if (key == 'MetricROE') {
+                var options = {
+                    legend: 'none',
+                    animation: {
+                        duration: 1000,
+                        easing: 'out',
+                        startup: true
+                    },
+                    vAxis: {
+                        format: '##.00%'
+                    }
+                };
+                id = "Dashboard_BarChart8";
+                data.addColumn('number', 'ROE %');
+                drawColumnChart(xAxis, yAxis, id, options, data, 3, 3, '0.00%');
+            } else if (key == 'InflationExpenses') {
+                var options = {
+                    legend: 'none',
+                    animation: {
+                        duration: 1000,
+                        easing: 'out',
+                        startup: true
+                    },
+                    vAxis: {
+                        format: 'long'
+                    }
+                };
+                id = "Dashboard_BarChart9";
+                data.addColumn('number', 'Inflation Expenses');
+                drawColumnChart(xAxis, yAxis, id, options, data, 3, 1, '$##,###');
+            } else if (key == 'TotalMarketingExpenses') {
+                var options = {
+                    legend: 'none',
+                    animation: {
+                        duration: 1000,
+                        easing: 'out',
+                        startup: true
+                    },
+                    vAxis: {
+                        format: 'long'
+                    }
+                };
+                id = "Dashboard_BarChart10";
+                data.addColumn('number', 'Marketing Expenses');
+                drawColumnChart(xAxis, yAxis, id, options, data, 3, 1, '$##,###');
+            } else if (key == 'TotalRDExpenses') {
+                var options = {
+                    legend: 'none',
+                    animation: {
+                        duration: 1000,
+                        easing: 'out',
+                        startup: true
+                    },
+                    vAxis: {
+                        format: 'long'
+                    }
+                };
+                id = "Dashboard_BarChart11";
+                data.addColumn('number', 'R&D Expenses');
+                drawColumnChart(xAxis, yAxis, id, options, data, 3, 1, '$##,###');
+            } else if (key == 'TotalOperatingExpenses') {
+                var options = {
+                    legend: 'none',
+                    animation: {
+                        duration: 1000,
+                        easing: 'out',
+                        startup: true
+                    },
+                    vAxis: {
+                        format: 'long'
+                    }
+                };
+                id = "Dashboard_BarChart12";
+                data.addColumn('number', 'Operating Expenses');
+                drawColumnChart(xAxis, yAxis, id, options, data, 3, 1, '$##,###');
+            }
+        }
+    }
+    return '';
+
+}, true);
+    </script>
+</head>
+<body data-f-model="Hackathon Model.xlsx">
+    <div class="container-fluid m-0 p-0 flex flex-column">
+        <header class="header row flex align-items-center justify-content-between">
+            <img src="../images/Kress-rose-full-white.png" alt="Kress Logo">
+            <div class="col-3">
+                <img class="company-logo" src="../images/advantexe-white.png" alt="advantexe logo">
+            </div>
+        </header>
+        <div class="row flex-grow-1" id="all-content">
+            <nav class="side-nav p-4 pt-3" style="width: 20%;">
+                <ul class="list-group">
+                    <li><a href="../index.html">Getting Started</a></li>
+                    <li><a href="#" id="link-active">Business Dashboard</a></li>
+                    <li><a href="financials.html">Financials</a></li>
+                    <!-- <li><a href="budget-allocation.html">Budget Allocation</a></li> -->
+                    <li><a href="operating-decisions.html">Operating Decisions</a></li>
+                    <li><a href="submit.html">Submit</a></li>
+                    <li><a href="results.html">Results</a></li>
+                    <li><a href="reset.html">Reset</a></li>
+                </ul>
+            </nav>
+            <div id="content" class="col">
+                <div class="row" id="header-row">
+                    <div class="header-container col">
+                        <h4 class="page-title">Business Dashboard</h4>
+                        <h4 class="page-title">Year: <span data-f-bind="Time[<Step>]"></span></h4>
+                    </div>
+                </div>
+                <div class="row mt-4 justify-content-center">
+                    <div class="col instructions p-2 text-center">
+                        <p>Within this section, you'll discover visual representations of KRESS's critical metrics. These graphs provide a visual aid to complement the data found on the financials page, aiding in the formulation of strategic adjustments.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="row ms-4">
+                        <div class="chart-container col-3 m-4 pt-3">
+                            <h5 class="text-center">Revenue</h5>
+                            <hr>
+                            <div class="chart-resize">
+                                <div data-f-bind="Step, StartingStep, PNLNetRevenueTotal | func_Dashboard_BarChart"></div>
+                            </div>
+                            <div id="Dashboard_BarChart1"></div>
+                        </div>
+                        <div class="chart-container col-3 m-4 pt-3">
+                            <h5 class="text-center">Net Income</h5>
+                            <hr>
+                            <div class="chart-resize">
+                                <div data-f-bind="Step, StartingStep, PNLNetincome | func_Dashboard_BarChart"></div>
+                            </div>
+                            <div id="Dashboard_BarChart4"></div>
+                        </div>
+                        <div class="chart-container col-3 m-4 pt-3">
+                            <h5 class="text-center">Total Operating Expenses</h5>
+                            <hr>
+                            <div class="chart-resize">
+                                <div data-f-bind="Step, StartingStep, TotalOperatingExpenses | func_Dashboard_BarChart"></div>
+                            </div>
+                            <div id="Dashboard_BarChart12"></div>
+                        </div>
+                    </div>
+                    <div class="row ms-4">
+                        <div class="chart-container col-3 m-4 pt-3">
+                            <h5 class="text-center">Inflation Expenses</h5>
+                            <hr>
+                            <div class="chart-resize">
+                                <div data-f-bind="Step, StartingStep, InflationExpenses | func_Dashboard_BarChart"></div>
+                            </div>
+                            <div id="Dashboard_BarChart9"></div>
+                        </div>
+                        <div class="chart-container col-3 m-4 pt-3">
+                            <h5 class="text-center">Marketing Expenses</h5>
+                            <hr>
+                            <div class="chart-resize">
+                                <div data-f-bind="Step, StartingStep, TotalMarketingExpenses | func_Dashboard_BarChart"></div>
+                            </div>
+                            <div id="Dashboard_BarChart10"></div>
+                        </div>
+                        <div class="chart-container col-3 m-4 pt-3">
+                            <h5 class="text-center">R&D Expenses</h5>
+                            <hr>
+                            <div class="chart-resize">
+                                <div data-f-bind="Step, StartingStep, TotalRDExpenses | func_Dashboard_BarChart"></div>
+                            </div>
+                            <div id="Dashboard_BarChart11"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kress Kosmetics</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="icon" href="../images/kress-logo.png">
+    <script src="../js/levers.js" defer></script>
+
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+
+    <script>
+        
+    </script>
+
+    <!-- Forio Setup -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.js"></script>
+    <script src="//forio.com/tools/js-libs/2.9.1/epicenter.min.js"></script>
+    <script src="//forio.com/tools/js-libs/flow/latest/flow.js"></script>
+    <script src="//forio.com/tools/js-libs/flow/latest/add-ons/flow-inspector.min.js"></script>
+    <script src="../js/main.js"></script>
+
+    <!-- Oswald font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald&family=Prompt&display=swap" rel="stylesheet">
+</head>
+<body data-f-model="Hackathon Model.xlsx">
+    <div class="container-fluid m-0 p-0 flex flex-column">
+        <header class="header row flex align-items-center justify-content-between">
+            <img src="../images/Kress-rose-full-white.png" alt="Kress Logo">
+            <div class="col-3">
+                <img class="company-logo" src="../images/advantexe-white.png" alt="advantexe logo">
+            </div>
+        </header>
+        <div class="row flex-grow-1" id="all-content">
+            <nav class="side-nav p-4 pt-3" style="width: 20%;">
+                <ul class="list-group">
+                    <li><a href="../index.html">Getting Started</a></li>
+                    <li><a href="business-dashboard.html">Business Dashboard</a></li>
+                    <li><a href="financials.html">Financials</a></li>
+                    <!-- <li><a href="budget-allocation.html">Budget Allocation</a></li> -->
+                    <li><a href="#" id="link-active">Operating Decisions</a></li>
+                    <li><a href="submit.html">Submit</a></li>
+                    <li><a href="results.html">Results</a></li>
+                    <li><a href="reset.html">Reset</a></li>
+                </ul>
+            </nav>
+            <div id="content" class="col">
+                <div class="row" id="header-row">
+                    <div class="header-container">
+                        <h4 class="page-title">Operating Decisions</h4>
+                        <h4 class="page-title">Year: <span data-f-bind="Time[<Step>]"></span></h4>
+                    </div>
+                </div>
+                <div class="row mt-4 justify-content-center">
+                    <div class="col instructions p-2 text-center">
+                        <p>In the subsequent tabs, you'll encounter a range of levers corresponding to various business decisions. Kindly choose the preferred quantity of levers on each page. Your selections will be saved and assessed once you submit.</p>
+                    </div>
+                </div>
+                <!-- Tabs -->
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active tab-color" id="inflation-tab" data-bs-toggle="tab" data-bs-target="#inflation" type="button" role="tab" aria-controls="inflation" aria-selected="true">Inflation</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link tab-color" id="marketing-tab" data-bs-toggle="tab" data-bs-target="#marketing" type="button" role="tab" aria-controls="marketing" aria-selected="false">Marketing</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link tab-color" id="RD-tab" data-bs-toggle="tab" data-bs-target="#RD" type="button" role="tab" aria-controls="RD" aria-selected="false">R&D</button>
+                            </li>
+                        </ul>
+
+                        <!-- Inflation Decisions -->
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="inflation" role="tabpanel" aria-labelledby="inflation-tab">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <h5 class="mb-3" style="color: #545454">Select 3 Levers</h5>
+                                    </div>
+                                    <div class="row">
+                                        <table class="col-10 table table-bordered lever-table">
+                                            <tr class="text-center">
+                                                <th>Decision</th>
+                                                <th>Lever</th>
+                                                <th><span class="text-danger">Cost</span>/<span class="text-success">Savings</span></th>
+                                                <th>Explanation</th>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <label class="switch">
+                                                        <input type="checkbox" class="inflation-lever" id="price-increase" value="1" data-off-value="0" data-f-bind="increasePriceDecision[<Step>]">
+                                                        <span class="slider round"></span>
+                                                    </label>
+                                                </td>
+                                                <td>
+                                                    Increase Prices
+                                                </td>
+                                                <td>$0</td>
+                                                <td>Increasing the cost of a product by a certain percentage in response to inflation typically exacerbates inflationary pressures, as it contributes to a general rise in the price level of goods and services. This price hike can lead to a potential spiral effect, where consumers' purchasing power diminishes, further driving up prices and impacting overall economic stability.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <label class="switch">
+                                                        <input type="checkbox" class="inflation-lever" value="1" id="price-decrease" data-off-value="0" data-f-bind="decreasePriceDecision[<Step>]">
+                                                        <span class="slider round"></span>
+                                                    </label>
+                                                </td>
+                                                <td>Decrease Prices</td>
+                                                <td>$0</td>
+                                                <td>Decreasing the price of products in an inflationary period can have mixed effects on a company. While it may attract price-conscious consumers and potentially increase sales volume, it can also lead to reduced profit margins due to higher production and operational costs, thereby putting pressure on the company's financial performance and sustainability.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <label class="switch">
+                                                        <input type="checkbox" class="inflation-lever" value="1" data-off-value="0" data-f-bind="layoffDecision[<Step>]">
+                                                        <span class="slider round"></span>
+                                                    </label>
+                                                </td>
+                                                <td>Layoff Employees</td>
+                                                <td class="text-success">$3,000,000</td>
+                                                <td>In an inflationary period, laying off employees, cutting salaries, or reducing benefits may provide short-term cost-saving measures for a company. However, these actions can negatively impact employee morale, productivity, and customer satisfaction, potentially leading to a decline in overall business performance and hinder the company's ability to adapt to market demands during such an economic environment.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <label class="switch">
+                                                        <input type="checkbox" class="inflation-lever" value="1" data-off-value="0" data-f-bind="relocateDecision[<Step>]">
+                                                        <span class="slider round"></span>
+                                                    </label>
+                                                </td>
+                                                <td>Relocate Production</td>
+                                                <td class="text-danger">$22,000,000</td>
+                                                <td>During an inflationary period, the relocation of production facilities can exacerbate inflation by potentially causing supply chain disruptions and increasing production costs. The move may lead to price adjustments, adding to inflationary pressures as businesses pass on these higher costs to consumers.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <label class="switch">
+                                                        <input type="checkbox" class="inflation-lever" value="1" data-off-value="0" data-f-bind="decreasePackDecision[<Step>]">
+                                                        <span class="slider round"></span>
+                                                    </label>
+                                                </td>
+                                                <td>Decrease Packaging Quality</td>
+                                                <td class="text-success">$4,000,000</td>
+                                                <td>Decreasing packaging quality during an inflationary period can be a short-term cost-cutting measure for a company. However, it may have negative consequences in the long run, such as customer dissatisfaction, brand reputation damage, and potential legal issues if the reduced packaging compromises product safety or integrity.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <label class="switch">
+                                                        <input type="checkbox" class="inflation-lever" value="1" data-off-value="0" data-f-bind="europeDecision[<Step>]">
+                                                        <span class="slider round"></span>
+                                                    </label>
+                                                </td>
+                                                <td>Expand to Europe</td>
+                                                <td class="text-danger">$10,000,000</td>
+                                                <td>Expanding to Europe during an inflationary period can offer strategic opportunities for a company, such as accessing new markets, diversifying revenue streams, and potentially benefiting from currency fluctuations. However, it also entails risks, such as adapting to different economic conditions, complying with varying regulations, and managing potential supply chain complexities, which require careful planning and risk assessment to ensure successful international expansion during an inflationary environment.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <label class="switch">
+                                                        <input type="checkbox" class="inflation-lever" value="1" data-off-value="0" data-f-bind="sustainableDecision[<Step>]">
+                                                        <span class="slider round"></span>
+                                                    </label>
+                                                </td>
+                                                <td>Prioritize Sustainable Products</td>
+                                                <td class="text-danger">$8,000,000</td>
+                                                <td>Implementing sustainability initiatives during an inflationary period can yield multiple benefits for a company. These initiatives can lead to cost savings through resource efficiency, enhance brand reputation, attract environmentally conscious consumers, and foster long-term resilience, making the company better equipped to weather economic challenges posed by inflation.</td>
+                                            </tr>
+                                        </table>
+                                        <div id="inflation-message" class="message"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Marketing Decisions -->
+                            <div class="tab-pane fade" id="marketing" role="tabpanel" aria-labelledby="marketing-tab">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <h5 class="mb-3" style="color: #545454">Select 4 Levers</h5>
+                                    </div>
+                                    <div class="row">
+                                        <table class="col-10 table table-bordered lever-table">
+                                            <tr class="text-center">
+                                                <th>Decision</th>
+                                                <th>Lever</th>
+                                                <th><span class="text-danger">Cost</span>/<span class="text-success">Savings</span></th>
+                                                <th>Explanation</th>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <label class="switch">
+                                                        <input type="checkbox" class="marketing-lever" value="1" data-off-value="0" data-f-bind="socialMediaDecision[<Step>]">
+                                                        <span class="slider round"></span>
+                                                    </label>
+                                                </td>
+                                                <td>
+                                                    Social Media Advertisements
+                                                </td>
+                                                <td class="text-danger">$10,000,000</td>
+                                                <td>Social media ads have a significant impact on a company's marketing success, as they offer precise targeting capabilities, reaching specific demographics and interests, leading to higher conversion rates and return on investment. By harnessing the power of social media ads, companies can enhance brand visibility, engage with potential customers, and drive business growth in a cost-effective and measurable manner.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <label class="switch">
+                                                        <input type="checkbox" class="marketing-lever" value="1" data-off-value="0" data-f-bind="influencerDecision[<Step>]">
+                                                        <span class="slider round"></span>
+                                                    </label>
+                                                </td>
+                                                <td>Influencer Brand Deal</td>
+                                                <td class="text-danger">$9,000,000</td>
+                                                <td>Influencer brand ambassadors can greatly impact a company's marketing success by leveraging their large and engaged audiences to promote products or services authentically. These influencers help build brand credibility, increase brand awareness, and drive sales, as their followers trust their recommendations, resulting in a potent and effective marketing strategy for companies.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <label class="switch">
+                                                        <input type="checkbox" class="marketing-lever" value="1" data-off-value="0" data-f-bind="webAdsDecision[<Step>]">
+                                                        <span class="slider round"></span>
+                                                    </label>
+                                                </td>
+                                                <td>Webpage Advertisements</td>
+                                                <td class="text-danger">$8,000,000</td>
+                                                <td>Web ads can significantly impact a company's marketing success by increasing online visibility, driving targeted traffic to their website, and generating potential leads. These ads enable companies to reach their desired audience effectively, improve brand recognition, and ultimately boost conversions, leading to a more successful and profitable online presence.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <label class="switch">
+                                                        <input type="checkbox" class="marketing-lever" value="1" data-off-value="0" data-f-bind="commercialDecision[<Step>]">
+                                                        <span class="slider round"></span>
+                                                    </label>
+                                                </td>
+                                                <td>Produce Commercials</td>
+                                                <td class="text-danger">$15,000,000</td>
+                                                <td>Commercials play a pivotal role in a company's marketing success by reaching a wide audience through television or digital platforms. These impactful advertisements enhance brand visibility, create emotional connections with viewers, and drive consumer interest, ultimately leading to increased sales and brand loyalty, contributing to the overall success of the company.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <label class="switch">
+                                                        <input type="checkbox" class="marketing-lever" value="1" data-off-value="0" data-f-bind="eventDecision[<Step>]">
+                                                        <span class="slider round"></span>
+                                                    </label>
+                                                </td>
+                                                <td>Sponser Events</td>
+                                                <td class="text-danger">$7,500,000</td>
+                                                <td>Event sponsorship can have a profound effect on a company's marketing success, as it provides a unique opportunity to increase brand exposure, reach a targeted audience, and create positive associations with the sponsored event. By aligning with relevant events, companies can enhance their brand reputation, build meaningful connections with potential customers, and ultimately drive sales, leading to increased success in their marketing endeavors.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <label class="switch">
+                                                        <input type="checkbox" class="marketing-lever" value="1" data-off-value="0" data-f-bind="magazineDecision[<Step>]">
+                                                        <span class="slider round"></span>
+                                                    </label>
+                                                </td>
+                                                <td>Magazine Advertisements</td>
+                                                <td class="text-danger">$7,000,000</td>
+                                                <td>In today's age, magazine ads continue to be an effective marketing tool for companies, as they offer a tangible and engaging platform to reach niche audiences and showcase products or services creatively. With strategic placement and appealing visuals, magazine ads can enhance brand recognition, target specific demographics, and complement digital marketing efforts, contributing to a company's overall marketing success.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <label class="switch">
+                                                        <input type="checkbox" class="marketing-lever" value="1" data-off-value="0" data-f-bind="mailDecision[<Step>]">
+                                                        <span class="slider round"></span>
+                                                    </label>
+                                                </td>
+                                                <td>Mail Advertisements</td>
+                                                <td class="text-danger">$8,000,000</td>
+                                                <td>In today's age, mail ads, also known as direct mail marketing, can still be an impactful strategy for companies. With a targeted approach, personalized content, and creative designs, mail ads can capture the attention of recipients, drive engagement, and lead to higher conversion rates, contributing to a company's marketing success in a digital world where physical, tangible connections can stand out.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <label class="switch">
+                                                        <input type="checkbox" class="marketing-lever" value="1" data-off-value="0" data-f-bind="billboardDecision[<Step>]">
+                                                        <span class="slider round"></span>
+                                                    </label>
+                                                </td>
+                                                <td>Billboard Advertisements</td>
+                                                <td class="text-danger">$7,500,000</td>
+                                                <td>Billboards can have a significant effect on a company's marketing success by providing high visibility in key locations and reaching a wide audience. With eye-catching designs and concise messaging, billboards can enhance brand awareness, create lasting impressions, and drive potential customers to engage with the company's products or services.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <label class="switch">
+                                                        <input type="checkbox" class="marketing-lever" value="1" data-off-value="0" data-f-bind="storesDecision[<Step>]">
+                                                        <span class="slider round"></span>
+                                                    </label>
+                                                </td>
+                                                <td>Open Stores</td>
+                                                <td class="text-danger">$10,000,000</td>
+                                                <td>Opening stores can have a substantial impact on a company's marketing success, as it allows for increased brand exposure, face-to-face interactions with customers, and the opportunity to create a physical presence in the market. Retail stores provide a tangible experience that fosters brand loyalty, drives customer engagement, and enhances the overall marketing strategy, contributing to the company's success in expanding its reach and market share.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <label class="switch">
+                                                        <input type="checkbox" class="marketing-lever" value="1" data-off-value="0" data-f-bind="amajonDecision[<Step>]">
+                                                        <span class="slider round"></span>
+                                                    </label>
+                                                </td>
+                                                <td>Online Retailers</td>
+                                                <td class="text-danger">3% of each total revenue</td>
+                                                <td>Adding products to popular online marketplaces provides companies with numerous benefits. It grants access to a wider audience, expanding brand visibility and credibility. The global reach allows businesses to enter new markets without physical stores. Utilizing fulfillment services streamlines logistics, while access to premium memberships attracts more customers. </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <label class="switch">
+                                                        <input type="checkbox" class="marketing-lever" value="1" data-off-value="0" data-f-bind="sportsDecision[<Step>]">
+                                                        <span class="slider round"></span>
+                                                    </label>
+                                                </td>
+                                                <td>Sponser a Sports Team</td>
+                                                <td class="text-danger">$15,000,000</td>
+                                                <td>Sponsorships can have a substantial effect on a company's marketing success by providing opportunities for brand exposure, association with popular events or organizations, and enhanced brand reputation. By sponsoring relevant events or partnerships, companies can reach their target audience, build meaningful connections, and create positive brand associations, ultimately leading to increased customer loyalty and business success.</td>
+                                            </tr>
+                                        </table>
+                                        <div id="marketing-message" class="message"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- R&D Decisions -->
+                            <div class="tab-pane fade" id="RD" role="tabpanel" aria-labelledby="RD-tab">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <h5 class="mb-3" style="color: #545454">Select 1 Lever</h5>
+                                    </div>
+                                    <div class="row">
+                                        <table class="col-10 table table-bordered lever-table">
+                                            <tr class="text-center">
+                                                <th>Decision</th>
+                                                <th>Lever</th>
+                                                <th><span class="text-danger">Cost</span>/<span class="text-success">Savings</span></th>
+                                                <th>Explanation</th>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <label class="switch">
+                                                        <input type="checkbox" class="rd-lever" value="1" data-off-value="0" data-f-bind="revampDecision[<Step>]">
+                                                        <span class="slider round"></span>
+                                                    </label>
+                                                </td>
+                                                <td>
+                                                   Revamp Older Products
+                                                </td>
+                                                <td class="text-danger">$20,000,000</td>
+                                                <td>Launching new versions of old products can positively impact a company's success by revitalizing interest in the brand, attracting existing customers to upgrade, and potentially reaching new market segments. Research and development play a crucial role in this process by refining existing products, incorporating new technologies, and meeting evolving consumer needs, allowing the company to maintain relevance, competitiveness, and sustainable growth in the market.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <label class="switch">
+                                                        <input type="checkbox" class="rd-lever" value="1" data-off-value="0" data-f-bind="testingDecision[<Step>]">
+                                                        <span class="slider round"></span>
+                                                    </label>
+                                                </td>
+                                                <td>New Product Testing</td>
+                                                <td class="text-danger">$15,000,000</td>
+                                                <td>New product testing plays a critical role in a company's success by ensuring product quality, identifying potential issues, and gathering valuable customer feedback before a product launch. Through research and development efforts, companies can refine and perfect their offerings, leading to higher customer satisfaction, reduced risks, and increased market acceptance, contributing to overall success and brand reputation.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <label class="switch">
+                                                        <input type="checkbox" class="rd-lever" value="1" data-off-value="0" data-f-bind="createProductsDecision[<Step>]">
+                                                        <span class="slider round"></span>
+                                                    </label>
+                                                </td>
+                                                <td>Launching New Product</td>
+                                                <td class="text-danger">$30,000,000</td>
+                                                <td>Launching new products can significantly impact a company's success by driving innovation, expanding market reach, and increasing revenue streams. Research and development efforts play a crucial role in this process, as they enable companies to identify market gaps, develop cutting-edge products, and stay competitive in a dynamic business environment, leading to enhanced overall success and growth potential.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <label class="switch">
+                                                        <input type="checkbox" value="1" class="rd-lever" data-off-value="0" data-f-bind="efficientDecision[<Step>]">
+                                                        <span class="slider round"></span>
+                                                    </label>
+                                                </td>
+                                                <td>Upgrade Factory Efficiency</td>
+                                                <td class="text-danger">$15,000,000</td>
+                                                <td>More efficient factory production can significantly impact a company's success by reducing manufacturing costs, improving product quality, and increasing overall productivity. With the help of research and development efforts, companies can innovate and implement advanced production technologies, streamline processes, and optimize resource utilization, leading to enhanced profitability, competitiveness, and market leadership.</td>
+                                            </tr>
+                                        </table>
+                                        <div id="rd-message" class="message"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
