@@ -5,3 +5,5 @@
 ## Live Demo
 
 [Explore the Live Demo](https://forio.com/app/jakekressley/kress-kosmetics/)
+
+![image](https://github.com/jakekressley/Kress-Kosmetics/assets/110749895/30e51aa7-5566-44ac-9333-6e7868defdcd)
